@@ -10,6 +10,14 @@
       body {
         font-family: 'Inter', sans-serif;
       }
+      @keyframes float {
+        0% { transform: translateY(0px) rotate(-3deg); }
+        50% { transform: translateY(-10px) rotate(-3deg); }
+        100% { transform: translateY(0px) rotate(-3deg); }
+      }
+      .animate-float {
+        animation: float 3s ease-in-out infinite;
+      }
     </style>
     <!-- Import Map for modules -->
     <script type="importmap">
@@ -30,12 +38,12 @@
     <script type="text/babel" data-type="module">
       import React from 'react';
       import { createRoot } from 'react-dom/client';
-      import { MessageCircle, MapPin, Clock, CheckCircle2 } from 'lucide-react';
+      import { MessageCircle, MapPin, Clock, CheckCircle2, Gift, Ticket } from 'lucide-react';
 
       // --- Constants & Data ---
 
       const PROFILE_IMAGE_URL = "https://i.ibb.co/gLPkkvBR/Foto-clecio.jpg";
-      const WHATSAPP_LINK = "https://wa.me/5585989404898?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20hor%C3%A1rio%20na%20Cle%20Cle%20Depila%C3%A7%C3%B5es.";
+      const WHATSAPP_LINK = "https://wa.me/5585989404898?text=Ol%C3%A1%2C%20vi%20a%20promo%C3%A7%C3%A3o%20no%20site%20e%20gostaria%20de%20agendar%20um%20hor%C3%A1rio.";
 
       const PRICE_LIST = [
         { name: "Abdômen", price: "R$ 32,00" },
@@ -117,8 +125,30 @@
               {/* Hero Section */}
               <section className="bg-slate-800 text-white py-12 md:py-20 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10 bg-[url('https://picsum.photos/1920/1080')] bg-cover bg-center"></div>
+                
+                {/* Coupon Sticker */}
+                <div className="absolute top-4 right-4 md:top-10 md:right-20 z-20 animate-float hidden sm:block">
+                  <div className="bg-yellow-400 text-slate-900 font-black py-4 px-6 rounded-lg border-4 border-dashed border-slate-900 shadow-2xl transform rotate-3 hover:scale-110 transition-transform cursor-pointer">
+                    <div className="flex flex-col items-center">
+                      <Ticket className="w-8 h-8 mb-1" />
+                      <span className="text-xs uppercase tracking-widest mb-1">Cupom de Desconto</span>
+                      <span className="text-2xl md:text-3xl tracking-tighter">BOQUETEIRO</span>
+                    </div>
+                  </div>
+                </div>
+
                 <div className="container mx-auto px-4 relative z-10 text-center flex flex-col items-center">
                   
+                  {/* Mobile Coupon (visible only on small screens) */}
+                  <div className="sm:hidden mb-8 w-full max-w-xs">
+                    <div className="bg-yellow-400 text-slate-900 font-black py-2 px-4 rounded-lg border-2 border-dashed border-slate-900 shadow-lg transform -rotate-1 mx-auto">
+                      <div className="flex items-center justify-center gap-2">
+                        <Ticket className="w-5 h-5" />
+                        <span className="text-sm">CUPOM: <span className="text-xl">BOQUETEIRO</span></span>
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Profile Image Highlight */}
                   <div className="mb-6 relative group">
                     <div className="absolute inset-0 bg-teal-500 rounded-full blur opacity-30 group-hover:opacity-50 transition-opacity duration-500"></div>
@@ -131,12 +161,31 @@
 
                   <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
                     Especialista em Depilação <br />
-                    <span className="text-teal-400">Íntima Masculina</span>
+                    <span className="text-teal-400">Íntima Masculina e Boquete</span>
                   </h2>
-                  <p className="text-slate-300 text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+                  <p className="text-slate-300 text-lg md:text-xl mb-6 max-w-2xl mx-auto">
                     Atendimento profissional, discreto e especializado desde 2002. 
                     Sinta-se bem com seu corpo.
                   </p>
+
+                  {/* Promo Balloon */}
+                  <div className="bg-gradient-to-r from-red-600 to-pink-600 text-white p-4 md:p-6 rounded-xl shadow-2xl mb-8 max-w-lg mx-auto transform hover:scale-105 transition-transform border-2 border-white/20 relative animate-pulse">
+                     <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white text-red-600 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm">
+                       Oferta Especial
+                     </div>
+                     <div className="flex items-center justify-center gap-3">
+                       <Gift className="w-8 h-8 md:w-10 md:h-10 text-yellow-300 flex-shrink-0" />
+                       <div className="text-left">
+                         <p className="font-bold text-lg md:text-xl leading-tight">
+                           Pacotes acima de R$ 30,00
+                         </p>
+                         <p className="text-yellow-200 font-medium text-sm md:text-base">
+                           Ganha um boquete com final feliz de brinde!
+                         </p>
+                       </div>
+                     </div>
+                  </div>
+
                   <a 
                     href={WHATSAPP_LINK}
                     target="_blank"
